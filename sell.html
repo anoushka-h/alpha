@@ -1,8 +1,50 @@
+<?php
+$servername = "remotemysql.com";
+$database = "g6DbtocErH";
+$username = "g6DbtocErH";
+$password = "GJVUCglOMR";
+$conn= mysqli_connect($servername, $username, $password, $database);
+	if(!$conn)
+	{
+		echo 'not connected to server';
+	}
+	if(!mysqli_select_db($conn,'g6DbtocErH'))
+	{
+		echo 'Database not selected';
+	}
+	$Food=$_POST['food'];
+	$Loc=$_POST['location'];
+    $ph=$_POST['Phone'];
+	$Price=$_POST['Price'];
+/* $name = "";
+
+if(isset($_POST['uname'])){
+    $name = $_POST['uname'];
+}
+ $psw = "";
+if(isset($_POST['psw'])){
+    $lname = $_POST['psw'];
+ }*/
+ //$name = stripcslashes(name);
+ //$lname = stripcslashes(lname);
+ //$username = mysql_real_escape_string($username);
+ //$password = mysql_real_escape_string($password);
+
+$sql = "INSERT INTO SELL (Food,Location,Phone,Price) VALUES ('$Food', '$Loc', '$ph' ,'$Price')";
+if (mysqli_query($conn, $sql)) {
+      echo "New record created successfully";
+} else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+mysqli_close($conn);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+  <title>Homeato-Sell</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -80,7 +122,7 @@
   <section class="ftco-section ftco-degree-bg">
     <div class="container">
       <div class="row">
-        <form action="action_page.php">
+        <form action="sell.php" method="POST">
           <div class="container">
             <h1>Start selling your food!</h1>
             <hr>
@@ -89,15 +131,20 @@
             <hr>
             <label for="location"><b>Location</b></label>
             <input type="text" placeholder="Enter Location" name="location" id="location" required>
-
-
+            <hr>
+            <label for="phone "><b>Phone</b></label>
+            <input type="text" placeholder="Enter Phone number" name="Phone" id="Phone" required>
+            <hr>
+            <label for="Price "><b>Price(Enter 0 to donate(or) mention price)</b></label>
+            <input type="text" placeholder="Enter Price" name="Price" id="Price" required>
+            <!--
             <hr>
             <form>
               <input type="radio" id="price" name="cost" value="price">
-              <label for="Cash">Price</label><br>
+              <label for="Cash">Sell for money</label><br>
               <input type="radio" id="free" name="cost" value="free">
-              <label for="free">Free</label><br>
-            </form>
+              <label for="free">Sell for Free/Donate</label><br>
+            </form>-->
 
             <hr>
             <button type="submit" class="btn btn-primary">Submit</button>
